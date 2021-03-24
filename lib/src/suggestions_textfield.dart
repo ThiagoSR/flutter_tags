@@ -25,9 +25,9 @@ class SuggestionsTextField extends StatefulWidget {
 }
 
 class _SuggestionsTextFieldState extends State<SuggestionsTextField> {
-  final _controller = TextEditingController();
+  TextEditingController _controller;
 
-  List<String> _matches = List();
+  List<String> _matches = [];
   String _helperText;
   bool _helperCheck = true;
 
@@ -39,6 +39,7 @@ class _SuggestionsTextFieldState extends State<SuggestionsTextField> {
   @override
   void initState() {
     super.initState();
+    _controller = widget.tagsTextField.controller ?? TextEditingController();
   }
 
   @override
@@ -82,6 +83,7 @@ class _SuggestionsTextFieldState extends State<SuggestionsTextField> {
           keyboardType: widget.tagsTextField.keyboardType ?? null,
           textCapitalization: widget.tagsTextField.textCapitalization ??
               TextCapitalization.none,
+          focusNode: widget.tagsTextField.focusNode ?? null,
           maxLength: widget.tagsTextField.maxLength ?? null,
           maxLines: 1,
           autocorrect: widget.tagsTextField.autocorrect ?? false,
@@ -194,6 +196,8 @@ class TagsTextField {
       this.textCapitalization,
       this.maxLength,
       this.inputDecoration,
+      this.focusNode,
+      this.controller,
       this.onSubmitted,
       this.onChanged});
 
@@ -218,6 +222,8 @@ class TagsTextField {
   final TextInputType keyboardType;
   final TextCapitalization textCapitalization;
   final int maxLength;
+  final FocusNode focusNode;
+  final TextEditingController controller;
   final OnSubmittedCallback onSubmitted;
   final OnChangedCallback onChanged;
 }
